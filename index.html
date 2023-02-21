@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz App By Abhishek</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+            height: 100vh;
+        }
+
+        .box {
+            display: flex;
+            background-color: aqua;
+            border-radius: 20px;
+            flex-direction: column;
+            width: 50%;
+            padding: 10px;
+            height: 247px;
+        }
+
+        .options {
+            /* display: flex;
+    flex-direction: column; */
+            height: 200px;
+        }
+
+        .options div {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+
+        .btn {
+            background-color: yellow;
+            padding: 9px;
+            margin: 10px;
+            color: red;
+            display: block;
+            width: 20%;
+            margin: 5px auto;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="box">
+            <h2 id="Quespart">1) question will be here</h2>
+            <div class="options">
+                <div>
+                    <input type="radio" name="one" id="option1" value="a"> <label for="option1">Option1</label>
+
+                </div>
+                <div>
+                    <input type="radio" name="one" id="option2" value="b"> <label for="option2">Option2</label>
+
+                </div>
+                <div>
+                    <input type="radio" name="one" id="option3" value="c"> <label for="option3">Option3</label>
+
+                </div>
+                <div>
+                    <input type="radio" name="one" id="option4" value="d"> <label for="option4">Option4</label>
+
+                </div>
+                <button class="btn" onclick="run()">Submit</button>
+
+            </div>
+        </div>
+    </div>
+    <script>
+        const ques = [
+            {
+                que: "what is Hoisting ?",
+                a: "Declaring at top",
+                b: "Calling before initializing",
+                c: "Initializing and then calling",
+                d: "None of the above",
+                correct:"b"
+            },
+            {
+                que: "Is javascript a statically typed or a dynamically typed language?",
+                a: "statically typed",
+                b: " dynamically typed",
+                c: "None of them",
+                d: "Both of them",
+                correct:"b"
+            },
+            {
+                que: "What is DOM?",
+                a: "Document Object Manipulation",
+                b: "Document Oriented Module",
+                c: "Document Object Method",
+                d: "Document Object Model",
+                correct:"d"
+            },
+            {
+                que: "What of them is declared as globally variable?",
+                a: "Let",
+                b: "var",
+                c: "Const",
+                d: "All of the above",
+                correct:"b"
+            },
+        ]
+        let index=0;
+        
+        let right=0;
+        let wrong=0;
+        const Quespart=document.querySelector('#Quespart');
+        const submitt=document.querySelector('.btn');
+        let box= document.querySelector('.box');
+        let total=ques.length;
+        const optionsInput=document.querySelectorAll('input')
+        const reset=()=>{
+            optionsInput.forEach((v)=>{
+                v.checked=false;
+            })
+        }
+
+       
+        const loaddata=()=>{
+            if(index ===total){
+                return endQuiz();
+            }
+            reset();
+            const data=ques[index];
+            
+            Quespart.innerText=`${index+1}) ${data.que}`;
+            optionsInput[0].nextElementSibling.innerText=data.a
+            optionsInput[1].nextElementSibling.innerText=data.b
+            optionsInput[2].nextElementSibling.innerText=data.c
+            optionsInput[3].nextElementSibling.innerText=data.d
+
+        }
+        loaddata();
+
+        
+
+        
+        // const getAnswer=()=>{
+        //     optionsInput.forEach((v)=>{
+        //         if(v.checked){
+        //             ans= v.value ;
+        //         }
+        //     })
+        // }
+       
+
+        const run=()=>{
+            const data=ques[index];
+           
+         
+            const answ = getAnswer();
+            console.log(answ)
+            if(answ === data.correct){
+                right++;
+            }
+            else{
+                wrong++;
+            }
+            index++;
+            loaddata();
+        }
+
+        function getAnswer() {
+            let ans;
+            optionsInput.forEach((v)=>{
+                if(v.checked){
+                    ans=v.value;
+                }
+            })
+            return ans;
+        }
+
+      
+
+        
+
+        const endQuiz=()=>{
+            box.innerHTML=`
+             <h2>Thanks your quiz has been ended</h2>
+             <h1>The score is ${right}/${total} </h1>
+             `
+        }
+       
+
+
+    </script>
+</body>
+
+</html>
